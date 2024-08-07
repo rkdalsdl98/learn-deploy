@@ -44,4 +44,4 @@ $ npm run test:cov
 + LoggingInterceptor 도입
 + AuthGuard 도입
 
-테스트7
+테스트8
