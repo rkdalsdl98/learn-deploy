@@ -1,0 +1,16 @@
+FROM postgres:16
+
+RUN apt-get update; \
+		apt-get install -y apt-utils curl locales tzdata;
+
+# LOCALE 설정
+RUN localedef -i ko_KR -f UTF-8 ko_KR.UTF-8; \ 
+        localedef -i en_US -f UTF-8 en_US.UTF-8;
+
+ENV LANG en_US.utf8
+
+# localtime 에 링크할 시간대를 링크.
+RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
+# 원하는 시간대 링크후 아래 수행시, /etc/timezone 파일변경됨.
+RUN dpkg-reconfigure -f noninteractive tzdata
