@@ -43,5 +43,3 @@ $ npm run test:cov
 + User 파이프 라인 구축
 + LoggingInterceptor 도입
 + AuthGuard 도입
-
-테스트13
