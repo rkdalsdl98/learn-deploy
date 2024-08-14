@@ -44,7 +44,7 @@ class JwtFactory {
 
             // 정적 환경 변수 로드
             const secret = assert<string>(process.env.JWT_SECRET)
-            const algorithm = assert<Algorithm>(process.env.JWT_ALGORITHM)
+            const algorithm = validate<Algorithm>(process.env.JWT_ALGORITHM).success ? process.env.JWT_ALGORITHM as Algorithm : "HS256"
             
             this.jwtService = new JwtService({
                 global: false,
