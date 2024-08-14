@@ -12,7 +12,7 @@ dotenv.config()
 
 const SECURE = process.env.COOKIE_SECURE === "true"
 const HTTPONLY = process.env.COOKIE_HTTPONLY === "true"
-const SAMESITE = validate<CookieOptions['sameSite']>(process.env.COOKIE_SAME_SITE).success ? process.env.COOKIE_SAME_SITE as CookieOptions["sameSite"] : "none"
+const SAMESITE = validate<string>(process.env.COOKIE_SAME_SITE).success ? process.env.COOKIE_SAME_SITE as CookieOptions["sameSite"] : "none"
 const MAXAGE = parseInt(process.env.COOKIE_MAX_AGE ?? "0")
 
 @Controller("user")
