@@ -10,4 +10,5 @@ npx prisma db push
 echo "start server"
 service redis-server start
 npm install
-npm run start:dev
+npm run build
+npm run start:prod
