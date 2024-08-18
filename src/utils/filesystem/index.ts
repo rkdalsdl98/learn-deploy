@@ -4,6 +4,7 @@ import {
     appendFile,
     mkdir,
     existsSync,
+    writeFile,
 } from "fs"
 import { Logger } from "@nestjs/common";
 
@@ -58,7 +59,11 @@ export namespace FileSystem {
         if(!_IsTextFile(filename)) {
             logger.log("텍스트 파일 이외의 파일은 저장할 수 없습니다.")
             return
-        } else if(!hasFolder(folder)) makedir(folder)
+        } else if(!hasFolder(folder)) {
+            makedir(folder)
+            writeFile(path.join(`${folder}/${filename}`), data + "\n", _handleException)
+            return
+        }
         appendFile(path.join(`${folder}/${filename}`), data + "\n", _handleException)
     }
 
