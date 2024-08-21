@@ -58,11 +58,10 @@ export namespace FileSystem {
         filename: string,
         data: string,
     ) : void => {
-        console.log(path.join(log_path), path.join)
         if(!_IsTextFile(filename)) {
             logger.log("텍스트 파일 이외의 파일은 저장할 수 없습니다.")
             return
-        }
+        } else if(!hasFolder(log_path)) makedir(log_path)
         appendFile(path.join(`${log_path}/${filename}`), data + "\n", _handleException)
     }
 
