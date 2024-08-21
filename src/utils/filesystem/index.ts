@@ -2,12 +2,15 @@ import * as path from "path"
 import {
     readFile,
     appendFile,
-    mkdir,
     existsSync,
-    writeFile,
+    mkdirSync,
 } from "fs"
 import { Logger } from "@nestjs/common";
 
+import * as dotenv from "dotenv"
+dotenv.config()
+
+const log_path = process.env.LOG_PATH ?? "logs"
 const logger: Logger = new Logger("FileSystem")
 
 export namespace FileSystem {
@@ -52,24 +55,19 @@ export namespace FileSystem {
      * @returns 
      */
     export const append = (
-        folder: string,
         filename: string,
         data: string,
     ) : void => {
         if(!_IsTextFile(filename)) {
             logger.log("텍스트 파일 이외의 파일은 저장할 수 없습니다.")
             return
-        } else if(!hasFolder(folder)) {
-            makedir(folder)
-            writeFile(path.join(`${folder}/${filename}`), data + "\n", _handleException)
-            return
-        }
-        appendFile(path.join(`${folder}/${filename}`), data + "\n", _handleException)
+        } else if(!hasFolder(log_path)) makedir(log_path)
+        appendFile(path.join(`${log_path}/${filename}`), data + "\n", _handleException)
     }
 
     export const makedir = (folder: string) => {
         try {
-            mkdir(path.join(folder), _handleException)
+            mkdirSync(path.join(folder), { recursive: true })
         } catch(e) {
             logger.log("저장 위치를 생성하는데 실패 했습니다.")
             return

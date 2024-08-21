@@ -90,7 +90,7 @@ class JwtFactory {
         } catch(e) {
             const message = `[비정상적인 토큰 접근]\n오염된 토큰으로 요청이 들어왔습니다.\n${e.toString()}`
             logger.error(message)
-            FileSystem.append("logs", "jwt.txt", message)
+            FileSystem.append("jwt.txt", message)
 
             if(e instanceof JsonWebTokenError) {
                 let error = ERROR.UnAuthorized

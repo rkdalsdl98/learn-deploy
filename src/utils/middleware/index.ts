@@ -71,9 +71,7 @@ export const handleException = (requestTimeLog:string, logmessage: string, err: 
         } satisfies typeof ERROR
     }
 
-    FileSystem.append("logs", "api.txt", requestTimeLog + "\n" + logmessage + `${detail ? "\n" + detail : ""}`)
-    console.log(logmessage)
-
+    FileSystem.append("api.txt", requestTimeLog + "\n" + logmessage + `${detail ? "\n" + detail : ""}`)
     return error
 }
 

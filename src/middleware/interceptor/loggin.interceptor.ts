@@ -30,7 +30,7 @@ export class LoggingInterceptor implements NestInterceptor {
         if(!reqAddress) {
             var err = ERROR.UnAuthorized
             var message = "[유효하지 않은 요청]: 아이피를 확인 할 수 없는 요청이 확인되었습니다."
-            FileSystem.append("logs", "guard.txt", message)
+            FileSystem.append("guard.txt", message)
             throw new HttpException(err.message, err.status)
         }
         
@@ -38,7 +38,7 @@ export class LoggingInterceptor implements NestInterceptor {
         if(!methods || methods.length < 1) {
             var err = ERROR.UnAuthorized
             var message = `[유효하지 않은 요청]: 메소드를 알 수 없는 요청이 확인되었습니다.\n[요청 아이피]: ${reqAddress}`
-            FileSystem.append("logs", "guard.txt", message)
+            FileSystem.append("guard.txt", message)
             throw new HttpException(err.message, err.status)
         }
         
@@ -50,7 +50,7 @@ export class LoggingInterceptor implements NestInterceptor {
         .pipe(
             tap(_=> {
                 const successLog = `[요청 처리 성공] ${ Date.now() - before}/ms`
-                FileSystem.append("logs", "api.txt", requestTimeLog + "\n" + successLog)
+                FileSystem.append("api.txt", requestTimeLog + "\n" + successLog)
             }),
             catchError((err, _) => {
                 const failedLog = `[요청 처리 실패] ${Date.now() - before}/ms`

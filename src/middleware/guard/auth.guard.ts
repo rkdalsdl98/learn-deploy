@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
         if(!tokens) {
             var err = ERROR.UnAuthorized
             var message = `${method}\n[토큰이 존재하지 않음]: 권한 인증에 필요한 토큰이 존재하지 않아 요청을 차단했습니다.\n[요청 아이피]: ${reqAddress}`
-            FileSystem.append("logs", "guard.txt", message)
+            FileSystem.append("guard.txt", message)
             throw new HttpException(err.message, err.status)
         }
 
@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
         } catch(e) {
             var err = ERROR.UnAuthorized
             var message = `${method}\n[유효하지 않은 토큰으로 요청]: 서버에서 발급한 토큰이 아니거나 오염된 토큰으로 요청이 들어왔습니다.\n[요청 아이피]: ${reqAddress}`
-            FileSystem.append("logs", "guard.txt", message)
+            FileSystem.append("guard.txt", message)
             if("message" in e && "status" in e) throw new HttpException(e.message, e.status)
             throw new HttpException(err.message, err.status)
         }
