@@ -11,6 +11,7 @@ import * as dotenv from "dotenv"
 dotenv.config()
 
 const log_path = process.env.LOG_PATH ?? "logs"
+const dir = path.join('/mnt', log_path)
 const logger: Logger = new Logger("FileSystem")
 
 export namespace FileSystem {
@@ -61,8 +62,8 @@ export namespace FileSystem {
         if(!_IsTextFile(filename)) {
             logger.log("텍스트 파일 이외의 파일은 저장할 수 없습니다.")
             return
-        } else if(!hasFolder(log_path)) makedir(log_path)
-        appendFile(path.join(`${log_path}/${filename}`), data + "\n", _handleException)
+        } else if(!hasFolder(dir)) makedir(dir)
+        appendFile(path.join(`${dir}/${filename}`), data + "\n", _handleException)
     }
 
     export const makedir = (folder: string) => {
