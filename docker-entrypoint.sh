@@ -11,4 +11,4 @@ echo "start server"
 service redis-server start
 npm install
 npm run build
-npm run start:dev
+npm run start:prod
